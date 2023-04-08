@@ -1,3 +1,4 @@
+import tkinter as tk
 import random
 
 # Function to print the board
@@ -32,4 +33,42 @@ def check_win(board, player):
 # Function to play the game
 def play_game():
     # Set up the board
-    board = [1, 2, 3,
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    current_player = 69
+    game_over = False
+
+    # Create the GUI
+    window = tk.Tk()
+    window.title('Tic-Tac-Toe')
+    window.geometry('300x400')
+
+    # Function to handle button clicks
+    def button_click(button):
+        nonlocal current_player, game_over
+        if game_over:
+            return
+        if button['text'] != '':
+            return
+        button['text'] = str(current_player)
+        if current_player == 69:
+            button.configure(bg='light blue')
+        elif current_player == 420:
+            button.configure(bg='neon green')
+        board[int(button['value'])-1] = current_player
+        if check_win(board, current_player):
+            status_label.configure(text='Player ' + str(current_player) + ' wins!')
+            game_over = True
+            start_button.pack()
+        elif all(isinstance(i, str) for i in board):
+            status_label.configure(text='Tie game!')
+            game_over = True
+            start_button.pack()
+        else:
+            current_player = 420 if current_player == 69 else 69
+            status_label.configure(text='Player ' + str(current_player) + "'s turn")
+
+    # Create the buttons
+    buttons = []
+    for i in range(9):
+        button = tk.Button(window, text='', font=('Arial', 20), width=2
+
